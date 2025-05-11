@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './MatchSelector.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const MatchSelector = () => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleClick = (matchId) => {
+    navigate(`/overlay/${matchId}`);
+  };
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -33,7 +40,7 @@ const MatchSelector = () => {
       ) : (
         <div className="match-grid">
           {matches.map((match) => (
-            <div key={match.id} className="match-card">
+            <div key={match.id} className="match-card" onClick={() => handleClick(match.id)}>
               <div className="team">
                 <img src={match.homeTeam.crest} alt={match.homeTeam.name} />
                 <span>{match.homeTeam.name}</span>
