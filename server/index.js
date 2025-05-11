@@ -6,15 +6,29 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-app.get('/api/match/:id', async (req, res) => {
+const PORT = process.env.PORT || 5000;
+
+app.get('/api/matches', async (req, res) => {
+  const { date } = req.query;
+
   try {
-    const response = await axios.get(`https://api.football-data.org/v4/matches/${req.params.id}`, {
-      headers: { 'X-Auth-Token': process.env.API_TOKEN }
+    const response = await axios.get('https://api.football-data.org/v4/matches', {
+      headers: {
+        'X-Auth-Token': process.env.FOOTBALL_API_KEY,
+      },
+      params: {
+        dateFrom: date,
+        dateTo: date,
+      },
     });
+
     res.json(response.data);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch match data' });
+    console.error('API error:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch matches' });
   }
 });
 
-app.listen(3001, () => console.log('Server running on http://localhost:3001'));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
