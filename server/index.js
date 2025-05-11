@@ -29,6 +29,21 @@ app.get('/api/matches', async (req, res) => {
   }
 });
 
+app.get('/api/match/:id', async (req, res) => {
+console.log("Requested match ID:", req.params.id);
+  try {
+    const response = await axios.get(`https://api.football-data.org/v4/matches/${req.params.id}`, {
+      headers: {
+        'X-Auth-Token': process.env.FOOTBALL_API_KEY,
+      },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching match data:', error.message);
+    res.status(500).json({ error: 'Failed to fetch match data' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
