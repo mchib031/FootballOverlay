@@ -1,0 +1,59 @@
+.match-header {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 3rem;
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+.competition {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.competition-logo {
+  width: 24px;
+  height: 24px;
+}
+
+.teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team img {
+  width: 32px;
+  height: 32px;
+}
+
+.team span{
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.status {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
