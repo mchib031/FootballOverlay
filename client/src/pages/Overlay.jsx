@@ -9,21 +9,30 @@ const Overlay = () => {
   const { matchId } = useParams();
   const cameraURL = process.env.REACT_APP_CAMERA_URL;
   const [matchData, setMatchData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  const fetchMatchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/match/${matchId}`);
+      setMatchData(response.data);
+      setLoading(false); 
+    } catch (error) {
+      console.error("Error fetching match data:", error);
+    }
+  };
+
+ 
   useEffect(() => {
-    const fetchMatchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/match/${matchId}`);
-        setMatchData(response.data);
-      } catch (error) {
-        console.error("Error fetching match data:", error);
-      }
-    };
+    const intervalId = setInterval(() => {
+      fetchMatchData();
+    }, 10000);
 
     fetchMatchData();
+
+    return () => clearInterval(intervalId);
   }, [matchId]);
 
-  if (!matchData) {
+  if (loading) {
     return <div className="loading">Loading match data...</div>;
   }
 
