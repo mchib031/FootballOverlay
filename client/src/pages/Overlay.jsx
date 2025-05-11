@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Overlay.css';
 import MatchHeader from "../components/MatchHeader";
+import LineupView from '../components/LineupView';
 
 const Overlay = () => {
   const { matchId } = useParams();
@@ -40,7 +41,35 @@ const Overlay = () => {
           <MatchHeader matchData={matchData} />
         </div>
         <div className="overlay-right">
-          {/* Rotating component: stats <-> lineup */}
+          <LineupView
+            homeTeam={matchData.homeTeam}
+            awayTeam={matchData.awayTeam}
+            homeLineup={[
+                { number: 1, name: 'Goalkeeper 1', position: 'GK' },
+                { number: 4, name: 'Defender A', position: 'DF' },
+                { number: 4, name: 'Defender A', position: 'DF' },
+                { number: 4, name: 'Defender A', position: 'DF' },
+                { number: 4, name: 'Defender A', position: 'DF' },
+                { number: 4, name: 'Defender A', position: 'DMF' },
+                { number: 4, name: 'Defender A', position: 'CMF' },
+                { number: 4, name: 'Defender A', position: 'MDF' },
+                { number: 4, name: 'Defender A', position: 'FWD' },
+                { number: 4, name: 'Defender A', position: 'FWD' },
+                { number: 4, name: 'Defender A', position: 'FWD' }
+            ]}
+            awayLineup={[
+                { number: 1, name: 'Goalkeeper 2', position: 'GK' },
+                { number: 5, name: 'Defender B', position: 'DF' },
+                { number: 5, name: 'Defender B', position: 'DF' },
+                { number: 5, name: 'Defender B', position: 'DF' },
+                { number: 5, name: 'Defender B', position: 'DF' },
+                { number: 5, name: 'Defender B', position: 'DMF' },
+                { number: 5, name: 'Defender B', position: 'CMF' },
+                { number: 5, name: 'Defender B', position: 'MDF' },
+                { number: 5, name: 'Defender B', position: 'FWD' },
+                { number: 5, name: 'Defender B', position: 'FWD' },
+                { number: 5, name: 'Defender B', position: 'FWD' }
+            ]}/>
         </div>
       </div>
     </div>
