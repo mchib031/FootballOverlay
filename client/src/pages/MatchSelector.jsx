@@ -16,11 +16,7 @@ const MatchSelector = () => {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/matches', {
-          params: {
-            date: new Date().toISOString().split('T')[0],
-          },
-        });
+        const res = await axios.get('http://localhost:5000/api/matches');
         setMatches(res.data.matches || []);
       } catch (err) {
         console.error('Error fetching matches:', err);
