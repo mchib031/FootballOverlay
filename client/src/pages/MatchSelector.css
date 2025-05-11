@@ -1,0 +1,50 @@
+.match-selector {
+  padding: 2rem;
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #121212;
+  color: #fff;
+}
+
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.match-card {
+  background: #1e1e1e;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  transition: 0.2s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.match-card:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+  background: #2a2a2a;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+}
+
+.team img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.vs {
+  font-weight: bold;
+  font-size: 1.2rem;
+}

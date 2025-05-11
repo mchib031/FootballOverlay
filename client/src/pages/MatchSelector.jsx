@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './MatchSelector.css';
 
 const MatchSelector = () => {
   const [matches, setMatches] = useState([]);
@@ -10,8 +11,7 @@ const MatchSelector = () => {
       try {
         const res = await axios.get('http://localhost:5000/api/matches', {
           params: {
-            dateFrom: new Date().toISOString().split('T')[0],
-            dateTo: new Date().toISOString().split('T')[0],
+            date: new Date().toISOString().split('T')[0],
           },
         });
         setMatches(res.data.matches || []);
@@ -26,18 +26,26 @@ const MatchSelector = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Match Selector</h1>
+    <div className="match-selector">
+      <h1>Select a Match</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <div className="match-grid">
           {matches.map((match) => (
-            <li key={match.id}>
-              {match.homeTeam.name} vs {match.awayTeam.name}
-            </li>
+            <div key={match.id} className="match-card">
+              <div className="team">
+                <img src={match.homeTeam.crest} alt={match.homeTeam.name} />
+                <span>{match.homeTeam.name}</span>
+              </div>
+              <span className="vs">vs</span>
+              <div className="team">
+                <img src={match.awayTeam.crest} alt={match.awayTeam.name} />
+                <span>{match.awayTeam.name}</span>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
