@@ -17,9 +17,6 @@ const MatchSelector = () => {
     const fetchMatches = async () => {
       try {
         const res = await axios.get('http://localhost:5000/api/matches', {
-          params: {
-            date: new Date().toISOString().split('T')[0],
-          },
         });
         setMatches(res.data.matches || []);
       } catch (err) {
