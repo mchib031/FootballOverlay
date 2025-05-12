@@ -1,47 +1,87 @@
-.lineup-container {
+.lineup-view {
   display: flex;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 1rem;
-  border-radius: 1rem;
-  height: 70%;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  width: 24vw;
+  height: 100px;
+}
+.field-container {
+  position: absolute;
+  width: 21%;
+  top: -100px;
+  perspective: 1000px;
+  margin: 0 auto;
 }
 
-.team-lineup {
-  width: 45%;
-  height: 100%;
+.field {
+  width: 100%;
+  border-radius: 20px;
+  transform: rotateX(40deg);
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  filter: blur(1px);
+  opacity: 0.7;
+}
+
+.lineup-container {
+  background-repeat: no-repeat;
+  background-position: center;
+  position:absolute;
+  top: 65px;
+  color: white;
+}
+
+.team-crest {
+  position: absolute;
+  opacity: 1;
+  left: -30px;
+  top: -70px;
+  width: 20%;
+  height: auto;
+  margin: 10px 10px;
+}
+
+.stadium-field {
   display: flex;
   flex-direction: column;
+}
+
+.lineup-row {
+  display: flex;
   justify-content: center;
 }
 
-.team-lineup h3 {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+.player {
+  position: relative;
   text-align: center;
+  height: 120px;
 }
 
-.team-lineup ul {
-  list-style: none;
-  padding: 0;
-  max-height: 100%;
-  overflow-y: auto;
+.player-name {
+  position:absolute;
+  top: 21%;
+  left: 0;
+  font-size: 0.7rem;
+  font-weight:bold;
+  width: 100%;
+  color: black;
 }
-
-.team-lineup li {
-  margin-bottom: 0.3rem;
-  font-size: 0.95rem;
-  padding: 0.2rem 0.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-}
-
-.vs-text {
-  align-self: center;
-  font-size: 2rem;
+.player-number {
+  position:absolute;
+  top: 35%;
+  left: 0;
+  text-align: center;
   font-weight: bold;
-  margin: 0 1rem;
+  font-size: 1.2rem;
+  color: black;
+  width: 100%;
 }
+.jersey {
+  width: 100px;
+  height: auto;
+  margin: 1rem;
+  top: 30px;
+  left: 5px;
+}
+
+

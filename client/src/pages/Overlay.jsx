@@ -54,30 +54,30 @@ const Overlay = () => {
             homeTeam={matchData.homeTeam}
             awayTeam={matchData.awayTeam}
             homeLineup={[
-                { number: 1, name: 'Goalkeeper 1', position: 'GK' },
-                { number: 4, name: 'Defender A', position: 'DF' },
-                { number: 4, name: 'Defender A', position: 'DF' },
-                { number: 4, name: 'Defender A', position: 'DF' },
-                { number: 4, name: 'Defender A', position: 'DF' },
-                { number: 4, name: 'Defender A', position: 'DMF' },
-                { number: 4, name: 'Defender A', position: 'CMF' },
-                { number: 4, name: 'Defender A', position: 'MDF' },
-                { number: 4, name: 'Defender A', position: 'FWD' },
-                { number: 4, name: 'Defender A', position: 'FWD' },
-                { number: 4, name: 'Defender A', position: 'FWD' }
+                { number: 1, name: 'Szczęsny', position: 'GK' },
+                { number: 24, name: 'Eric García', position: 'DF' },
+                { number: 2, name: 'Cubarsí', position: 'DF' },
+                { number: 5, name: 'Martinez', position: 'DF' },
+                { number: 35, name: 'Gerard Martín', position: 'DF' },
+                { number: 21, name: 'De Jong', position: 'MF' },
+                { number: 8, name: 'Pedri', position: 'MF' },
+                { number: 20, name: 'Olmo', position: 'MF' },
+                { number: 11, name: 'Raphinha', position: 'FWD' },
+                { number: 19, name: 'Lamine Yamal', position: 'FWD' },
+                { number: 7, name: 'Ferran Torres', position: 'FWD' }
             ]}
             awayLineup={[
-                { number: 1, name: 'Goalkeeper 2', position: 'GK' },
-                { number: 5, name: 'Defender B', position: 'DF' },
-                { number: 5, name: 'Defender B', position: 'DF' },
-                { number: 5, name: 'Defender B', position: 'DF' },
-                { number: 5, name: 'Defender B', position: 'DF' },
-                { number: 5, name: 'Defender B', position: 'DMF' },
-                { number: 5, name: 'Defender B', position: 'CMF' },
-                { number: 5, name: 'Defender B', position: 'MDF' },
-                { number: 5, name: 'Defender B', position: 'FWD' },
-                { number: 5, name: 'Defender B', position: 'FWD' },
-                { number: 5, name: 'Defender B', position: 'FWD' }
+                { number: 1, name: 'Courtois', position: 'GK' },
+                { number: 35, name: 'Asencio', position: 'DF' },
+                { number: 14, name: 'Tchouameni', position: 'DF' },
+                { number: 20, name: 'Fran Garcia', position: 'DF' },
+                { number: 17, name: 'Lucas Vazquez', position: 'DF' },
+                { number: 19, name: 'Ceballos', position: 'MF' },
+                { number: 8, name: 'Valverde', position: 'MF' },
+                { number: 5, name: 'Bellingham', position: 'MF' },
+                { number: 15, name: 'Guler', position: 'MF' },
+                { number: 9, name: 'Mbappe', position: 'FWD' },
+                { number: 7, name: 'Vinicius Jr', position: 'FWD' }
             ]}/>
         </div>
       </div>
