@@ -8,6 +8,29 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
+const normalize = (str) => str.toLowerCase().replace(/\s/g, '');
+
+const getApiFootballFixturesByDate = async (matchDate) => {
+  try {
+    const response = await axios.get('https://v3.football.api-sports.io/fixtures', {
+      headers: {
+        'x-apisports-key': process.env.API_FOOTBALL_KEY,
+      },
+      params: {
+        date: matchDate
+      },
+    });
+
+    console.log("API-Football Fixtures Response:", JSON.stringify(response.data, null, 2));
+
+    return response.data.response;
+  } catch (err) {
+    console.error('Error fetching fixtures:', err.message);
+    return [];
+  }
+};
+
+
 app.get('/api/matches', async (req, res) => {
   const { date } = req.query;
 
@@ -17,17 +40,42 @@ app.get('/api/matches', async (req, res) => {
         'X-Auth-Token': process.env.FOOTBALL_API_KEY,
       },
       params: {
-        dateFrom: date,
-        dateTo: date,
+        date: date
       },
     });
 
-    res.json(response.data);
+    const matches = response.data.matches;
+
+    const apiFootballFixtures = await getApiFootballFixturesByDate(date);
+
+    const enrichedMatches = matches.map(match => {
+      const homeName = normalize(match.homeTeam.name);
+      const awayName = normalize(match.awayTeam.name);
+      const homeShortName = normalize(match.homeTeam.shortName);
+      const awayShortName = normalize(match.awayTeam.shortName);
+
+      const found = apiFootballFixtures.find(fixture => {
+        const home = normalize(fixture.teams.home.name);
+        const away = normalize(fixture.teams.away.name);
+        return home.includes(homeName) || home.includes(homeShortName) || away.includes(awayName) || away.includes(awayShortName);
+      });
+
+      return {
+        ...match,
+        apiFootballId: found?.fixture?.id || null,
+      };
+    });
+
+    res.json({
+      matches: enrichedMatches,
+      fixturesFromApiFootball: apiFootballFixtures,
+    });
   } catch (err) {
     console.error('API error:', err.response?.data || err.message);
     res.status(500).json({ error: 'Failed to fetch matches' });
   }
 });
+
 
 app.get('/api/match/:id', async (req, res) => {
 console.log("Requested match ID:", req.params.id);
