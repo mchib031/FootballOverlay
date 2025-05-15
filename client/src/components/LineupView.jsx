@@ -7,8 +7,8 @@ import awayJersey from '../assets/away-jersey.png';
 
 const LineupView = ({ homeTeam, awayTeam, homeLineup, awayLineup }) => {
   const [showHome, setShowHome] = useState(true);
-  homeTeam= { ...homeTeam, jersey: homeJersey, color: "yellow" };
-  awayTeam= { ...awayTeam, jersey: awayJersey, color: "black" };
+  homeTeam= { ...homeTeam, jersey: homeJersey, color: "black" };
+  awayTeam= { ...awayTeam, jersey: awayJersey, color: "white" };
   useEffect(() => {
     const interval = setInterval(() => {
       setShowHome(prev => !prev);

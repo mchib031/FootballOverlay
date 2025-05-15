@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./MatchHeader.css";
 
 const MatchHeader = ({ matchData }) => {
@@ -11,22 +11,57 @@ const MatchHeader = ({ matchData }) => {
     utcDate,
   } = matchData;
 
-  const [elapsedTime, setElapsedTime] = useState("00:00");
+  const [displayTime, setDisplayTime] = useState("00:00");
+  const [extraTime, setExtraTime] = useState(0);
+  const extraTimeIntervalRef = useRef(null);
 
   useEffect(() => {
     const startTime = new Date(utcDate);
 
     const interval = setInterval(() => {
       const now = new Date();
-      const diff = Math.floor((now - startTime) / 1000); // in seconds
+      const diff = Math.floor((now - startTime) / 1000);
 
-      const minutes = String(Math.floor(diff / 60)).padStart(2, "0");
-      const seconds = String(diff % 60).padStart(2, "0");
-      setElapsedTime(`${minutes}:${seconds}`);
+      const mainMinutes = Math.floor(diff / 60);
+      const mainSeconds = diff % 60;
+
+      if ((mainMinutes === 45 || mainMinutes === 90) && status === "IN_PLAY") {
+        // Lock main clock at 45:00 or 90:00
+        setDisplayTime(
+          `${String(mainMinutes).padStart(2, "0")}:00 + ${formatTime(extraTime)}`
+        );
+
+        if (!extraTimeIntervalRef.current) {
+          extraTimeIntervalRef.current = setInterval(() => {
+            setExtraTime((prev) => prev + 1);
+          }, 1000);
+        }
+      } else if (status === "IN_PLAY") {
+        // Normal ticking
+        clearInterval(extraTimeIntervalRef.current);
+        extraTimeIntervalRef.current = null;
+        setExtraTime(0);
+        setDisplayTime(
+          `${String(mainMinutes).padStart(2, "0")}:${String(mainSeconds).padStart(2, "0")}`
+        );
+      } else {
+        // Stop everything if not in play
+        clearInterval(extraTimeIntervalRef.current);
+        extraTimeIntervalRef.current = null;
+      }
     }, 1000);
 
-    return () => clearInterval(interval);
-  }, [utcDate]);
+    return () => {
+      clearInterval(interval);
+      clearInterval(extraTimeIntervalRef.current);
+    };
+  }, [utcDate, status, extraTime]);
+
+  const formatTime = (seconds) => {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    return `${m}:${s}`;
+  };
 
   return (
     <div className="match-header">
@@ -57,7 +92,7 @@ const MatchHeader = ({ matchData }) => {
 
       <div className="status">
         <span>{status === "IN_PLAY" ? "LIVE" : status}</span>
-        <div>{status === "IN_PLAY" ? elapsedTime : null}</div>
+        <div>{status === "IN_PLAY" ? displayTime : null}</div>
       </div>
     </div>
   );
