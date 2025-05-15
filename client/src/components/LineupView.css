@@ -67,11 +67,13 @@
 }
 .slider {
   position: relative;
-  width: 100%;
+  width: 160%;
   overflow: hidden;
   height: auto;
   padding: 15px;
   transform: translateY(-5%);
+  margin-left: -30%;
+  margin-right: -30%;
 }
 
 .slider-inner {
