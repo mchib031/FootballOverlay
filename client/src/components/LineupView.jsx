@@ -21,10 +21,10 @@ const LineupView = ({ homeTeam, awayTeam, homeLineup, awayLineup }) => {
   const teamCrest = showHome ? homeTeam.crest : awayTeam.crest;
   
 
-  const goalkeeper = lineup.filter(p => p.position === 'GK');
-  const defenders = lineup.filter(p => p.position.includes('DF'));
-  const midfielders = lineup.filter(p => p.position.includes('MF'));
-  const forwards = lineup.filter(p => p.position.includes('FW'));
+  const goalkeeper = lineup.filter(p => p.position === 'G');
+  const defenders = lineup.filter(p => p.position.includes('D'));
+  const midfielders = lineup.filter(p => p.position.includes('M'));
+  const forwards = lineup.filter(p => p.position.includes('F'));
 
   return (
   <div className="lineup-view">
@@ -40,10 +40,10 @@ const LineupView = ({ homeTeam, awayTeam, homeLineup, awayLineup }) => {
         {[homeLineup, awayLineup].map((lineupData, index) => {
           const lineup = lineupData;
           const team = index === 0 ? homeTeam : awayTeam;
-          const goalkeeper = lineup.filter(p => p.position === 'GK');
-          const defenders = lineup.filter(p => p.position.includes('DF'));
-          const midfielders = lineup.filter(p => p.position.includes('MF'));
-          const forwards = lineup.filter(p => p.position.includes('FW'));
+          const goalkeeper = lineup.filter(p => p.position === 'G');
+          const defenders = lineup.filter(p => p.position.includes('D'));
+          const midfielders = lineup.filter(p => p.position.includes('M'));
+          const forwards = lineup.filter(p => p.position.includes('F'));
 
           return (
             <div key={index} className="lineup-container">

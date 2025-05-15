@@ -21,8 +21,6 @@ const getApiFootballFixturesByDate = async (matchDate) => {
       },
     });
 
-    console.log("API-Football Fixtures Response:", JSON.stringify(response.data, null, 2));
-
     return response.data.response;
   } catch (err) {
     console.error('Error fetching fixtures:', err.message);
@@ -78,7 +76,6 @@ app.get('/api/matches', async (req, res) => {
 
 
 app.get('/api/match/:id', async (req, res) => {
-console.log("Requested match ID:", req.params.id);
   try {
     const response = await axios.get(`https://api.football-data.org/v4/matches/${req.params.id}`, {
       headers: {
@@ -91,6 +88,26 @@ console.log("Requested match ID:", req.params.id);
     res.status(500).json({ error: 'Failed to fetch match data' });
   }
 });
+
+app.get('/api/lineup/:fixtureId', async (req, res) => {
+  const fixtureId = req.params.fixtureId;
+  try {
+    const response = await axios.get(`https://v3.football.api-sports.io/fixtures/lineups`, {
+      headers: {
+        'x-apisports-key': process.env.API_FOOTBALL_KEY,
+      },
+      params: {
+        fixture: fixtureId
+      }
+    });
+
+    res.json(response.data.response);
+  } catch (error) {
+    console.error('Error fetching lineup:', error.message);
+    res.status(500).json({ error: 'Failed to fetch lineup data' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
