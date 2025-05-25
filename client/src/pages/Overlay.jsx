@@ -63,8 +63,15 @@ const Overlay = () => {
   };
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchMatchData();
+    }, 30000);
+
     fetchMatchData();
+
+    return () => clearInterval(intervalId);
   }, [matchId]);
+
 
   useEffect(() => {
     fetchLineupData();

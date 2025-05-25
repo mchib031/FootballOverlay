@@ -1,59 +1,109 @@
 .match-header {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: transparent;
   color: white;
-  padding: 3rem;
-  border-radius: 10px;
-  max-width: 500px;
+  width: 220px;
+  border-radius: 1rem;
+  font-family: Arial, sans-serif;
+  border: 8px solid #52357B;
+  -webkit-box-shadow: 4px -4px 10px rgba(50, 50, 50, 0.75);
+  position: relative;
+  z-index: 0;
+
 }
 
 .competition {
+  position: relative;
+  background-color: #5459AC;
+  color: white;
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.8rem;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  z-index: 1;
 }
 
 .competition-logo {
-  width: 24px;
-  height: 24px;
+  border-radius: 2px;
+  padding: 8px;
+  margin: 0;
+  width: 56px;
+  height: 56px;
+  -webkit-box-shadow: 4px 0 10px rgba(50, 50, 50, 0.75);
+
 }
 
-.teams {
+.team-box {
+  background-color: #648DB3;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  position: relative;
+  padding: 0.2rem;
+  z-index: 2;
+  width: 325px;
+  border-radius: .6rem;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  overflow: visible;
+  transform: translateX(-3.5rem);
 }
 
-.team img {
-  width: 32px;
-  height: 32px;
+.score-box {
+  background-color: white;
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  min-width: 1rem;
+  text-align: center;
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  -webkit-box-shadow: 4px 0 10px rgba(50, 50, 50, 0.75);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.team span{
+.team-name {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
-  text-align: center;
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-
 }
 
-.team {
+.status-box {
+  position: relative;
+  z-index: 0;
+  background-color: #B2D8CE;
+  color: black;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
   display: flex;
+  justify-content: flex-end;
+  gap: 2.5rem;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.score {
-  font-size: 1.5rem;
+  font-size: 0.85rem;
   font-weight: bold;
 }
 
-.status {
-  margin-top: 1rem;
+.status-box .time-box{
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
   text-align: center;
-  font-size: 0.9rem;
+  border-bottom-right-radius: 0.4rem;
+  -webkit-box-shadow: 0 4px 10px rgba(50, 50, 50, 0.75);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.team-box img {
+  width: 70px;
+  height: 70px;
 }
