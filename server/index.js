@@ -6,6 +6,9 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+const matchStatsController = require("./modules/matchStats/matchStats.controller");
+
+
 const PORT = process.env.PORT || 5000;
 
 const normalize = (str) => str.toLowerCase().replace(/\s/g, '');
@@ -108,6 +111,7 @@ app.get('/api/lineup/:fixtureId', async (req, res) => {
   }
 });
 
+app.use("/api/match", matchStatsController);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

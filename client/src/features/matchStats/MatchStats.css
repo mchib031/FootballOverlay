@@ -1,0 +1,26 @@
+.match-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 1rem;
+  font-family: sans-serif;
+  color: white;
+  background-color: #222;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #444;
+  padding: 4px 0;
+}
+
+.stat-type {
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}

@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Overlay.css';
 import MatchHeader from "../components/MatchHeader";
 import LineupView from '../components/LineupView';
-
+import MatchStats from '../features/matchStats/MatchStats';
 const Overlay = () => {
   const { matchId } = useParams();
   const location = useLocation();
@@ -16,9 +16,14 @@ const Overlay = () => {
   const [matchData, setMatchData] = useState(null);
   const [loadingMatch, setLoadingMatch] = useState(true);
 
+  const [matchStats, setMatchStats] = useState(null);
+  const [loadingStats, setLoadingStats] = useState(true);
+
+
   const [homeLineup, setHomeLineup] = useState([]);
   const [awayLineup, setAwayLineup] = useState([]);
   const [loadingLineup, setLoadingLineup] = useState(true);
+  const [showingLineup, setShowingLineup] = useState(true);
 
   const fetchMatchData = async () => {
     try {
@@ -62,6 +67,23 @@ const Overlay = () => {
     }
   };
 
+  const fetchMatchStats = async () => {
+  if (!fixtureId) {
+    setLoadingStats(false);
+    return;
+  }
+
+  try {
+    const response = await axios.get(`http://localhost:5000/api/match/${fixtureId}/stats`);
+    setMatchStats(response.data);
+    setLoadingStats(false);
+  } catch (error) {
+    console.error("Error fetching match stats:", error);
+    setLoadingStats(false);
+  }
+};
+
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchMatchData();
@@ -72,10 +94,30 @@ const Overlay = () => {
     return () => clearInterval(intervalId);
   }, [matchId]);
 
+  useEffect(() => {
+    fetchMatchStats();
+
+    const statsInterval = setInterval(() => {
+      fetchMatchStats();
+    }, 600000); 
+
+    return () => clearInterval(statsInterval);
+  }, [fixtureId]);
+
 
   useEffect(() => {
     fetchLineupData();
+    fetchMatchStats();
   }, [fixtureId]);
+
+  useEffect(() => {
+  const toggleInterval = setInterval(() => {
+    setShowingLineup(prev => !prev);
+  }, 60000);
+
+  return () => clearInterval(toggleInterval);
+}, []);
+
 
   if (loadingMatch || loadingLineup) {
     return <div className="loading">Loading match data...</div>;
@@ -95,15 +137,20 @@ const Overlay = () => {
           <MatchHeader matchData={matchData} />
         </div>
         <div className="overlay-right">
-          {homeLineup.length > 0 && awayLineup.length > 0 ? (
+          {showingLineup ? (
+            homeLineup.length > 0 && awayLineup.length > 0 ? (
             <LineupView
-              homeTeam={matchData?.homeTeam}
-              awayTeam={matchData?.awayTeam}
-              homeLineup={homeLineup}
-              awayLineup={awayLineup}
+            homeTeam={matchData?.homeTeam}
+            awayTeam={matchData?.awayTeam}
+            homeLineup={homeLineup}
+            awayLineup={awayLineup}
             />
           ) : (
-            <div>No lineup data available</div>
+          <div>
+            No lineup data available
+          </div>
+          )) : (
+          <MatchStats stats={matchStats} loading={loadingStats} />
           )}
         </div>
       </div>
