@@ -43,12 +43,12 @@ const MatchSelector = () => {
             >
               <div className="team">
                 <img src={match.homeTeam.crest} alt={match.homeTeam.name} />
-                <span>{match.homeTeam.name}</span>
+                <span>{match.homeTeam.shortName}</span>
               </div>
               <span className="vs">vs</span>
               <div className="team">
                 <img src={match.awayTeam.crest} alt={match.awayTeam.name} />
-                <span>{match.awayTeam.name}</span>
+                <span>{match.awayTeam.shortName}</span>
               </div>
             </div>
           ))}

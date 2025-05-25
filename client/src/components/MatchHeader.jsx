@@ -26,7 +26,6 @@ const MatchHeader = ({ matchData }) => {
       const mainSeconds = diff % 60;
 
       if ((mainMinutes === 45 || mainMinutes === 90) && status === "IN_PLAY") {
-        // Lock main clock at 45:00 or 90:00
         setDisplayTime(
           `${String(mainMinutes).padStart(2, "0")}:00 + ${formatTime(extraTime)}`
         );
@@ -37,7 +36,6 @@ const MatchHeader = ({ matchData }) => {
           }, 1000);
         }
       } else if (status === "IN_PLAY") {
-        // Normal ticking
         clearInterval(extraTimeIntervalRef.current);
         extraTimeIntervalRef.current = null;
         setExtraTime(0);
@@ -45,13 +43,15 @@ const MatchHeader = ({ matchData }) => {
           `${String(mainMinutes).padStart(2, "0")}:${String(mainSeconds).padStart(2, "0")}`
         );
       } else {
-        // Stop everything if not in play
         clearInterval(extraTimeIntervalRef.current);
         extraTimeIntervalRef.current = null;
       }
     }, 1000);
 
     return () => {
+    console.log("Start Time:", startTime);
+    console.log("Now:", new Date());
+
       clearInterval(interval);
       clearInterval(extraTimeIntervalRef.current);
     };
@@ -66,33 +66,25 @@ const MatchHeader = ({ matchData }) => {
   return (
     <div className="match-header">
       <div className="competition">
-        <img
-          src={competition.emblem}
-          alt={competition.name}
-          className="competition-logo"
-        />
+        <img src={competition.emblem} alt={competition.name} className="competition-logo" />
         <span>{competition.name}</span>
       </div>
 
-      <div className="teams">
-        <div className="team">
-          <img src={homeTeam.crest} alt={homeTeam.name} />
-          <span>{homeTeam.name}</span>
-        </div>
-        <div className="score">
-          <span>
-            {score.fullTime.home ?? 0} - {score.fullTime.away ?? 0}
-          </span>
-        </div>
-        <div className="team">
-          <img src={awayTeam.crest} alt={awayTeam.name} />
-          <span>{awayTeam.name}</span>
-        </div>
+      <div className="team-box home">
+        <div className="score-box">{score.fullTime.home ?? 0}</div>
+        <span className="team-name">{homeTeam.shortName.toUpperCase()}</span>
+        <img src={homeTeam.crest} alt={homeTeam.name} />
       </div>
 
-      <div className="status">
-        <span>{status === "IN_PLAY" ? "LIVE" : status}</span>
-        <div>{status === "IN_PLAY" ? displayTime : null}</div>
+      <div className="team-box away">
+        <div className="score-box">{score.fullTime.away ?? 0}</div>
+        <span className="team-name">{awayTeam.shortName.toUpperCase()}</span>
+        <img src={awayTeam.crest} alt={awayTeam.name} />
+      </div>
+
+      <div className="status-box">
+        <span>{status === "IN_PLAY" ? "1ST HALF" : status}</span>
+        <span className="time-box">{status === "IN_PLAY" ? displayTime : "00:00"}</span>
       </div>
     </div>
   );
